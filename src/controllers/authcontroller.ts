@@ -5,22 +5,27 @@ import jwt from 'jsonwebtoken'
 import { connect } from '../database';
 
 export const signup = async (req: Request, res: Response) => {
-    const conn = await connect();
-    const user: IUser = new User(
-        req.body.username,
-        req.body.email,
-        req.body.password
-    )
-    user.password = await user.encryptPassword(user.password)
-    //saving
-    await conn.query('INSERT INTO users SET ?',[user]);
-    return res.json({
-        message: 'User created sucess'
-    })
+    try{
+        const conn = await connect();
+        const user: IUser = new User(
+            req.body.username,
+            req.body.email,
+            req.body.password
+        )
+        user.password = await user.encryptPassword(user.password)
+        //saving
+        await conn.query('INSERT INTO users SET ?',[user]);
+        return res.json({
+            message: 'User created sucess'
+        })
+    }catch(e){
+        console.error(e)
+    }
+    
 
 }
 
- export const signIn = async (req: Request, res: Response) => {
+export const signIn = async (req: Request, res: Response) => {
     /* const user: IUser = new User ({
         
     }) */

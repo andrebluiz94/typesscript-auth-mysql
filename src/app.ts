@@ -29,7 +29,7 @@ export class App {
     routes() {
         this.app.use(IndexRoute);
         this.app.use('/post', PostRoute);
-        this.app.use('/api/auth', authRoutes) ;
+        this.app.use('/auth', authRoutes) ;
     }
 
 
